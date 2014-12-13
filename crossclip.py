@@ -64,8 +64,9 @@ class ClientThread(socketserver.BaseRequestHandler):
 							self.quiet = True
 						elif command == 'setclipboard':
 							clipcontent = str(arg)
-							clipcontent = clipcontent.replace('\\\\','\\')
 							clipcontent = clipcontent.replace('\\n','\n')
+							clipcontent = clipcontent.replace('\\\n','\\n')
+							clipcontent = clipcontent.replace('\\\\','\\')
 							pyperclip.copy(clipcontent)
 							if not self.quiet:
 								Notify.Notification.new('Cross Clip','%s has modified your clipboard content to <b>%s</b>' % (self.host,clipcontent)).show()
